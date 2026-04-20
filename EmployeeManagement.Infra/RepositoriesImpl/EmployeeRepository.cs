@@ -37,7 +37,7 @@ namespace EmployeeManagement.Infra.RepositoriesImpl
             ExecuteSqlRaw("EXEC usp_AddNewEmployee @txtFirstName,@txtLastName,@txtEmail," +
             "@txtPhone,@intDeptId,@salary,@status,@intLocationId,@intManagerId",firstName,lastName,email,phone,
             deptId,salary,status,locationId,managerId);
-            if (result == 1)
+            if (result == 2)
                 return emp;
             else
                 throw new Exception("Employee with this email already exists");
@@ -51,7 +51,7 @@ namespace EmployeeManagement.Infra.RepositoriesImpl
             }
             SqlParameter empId = new SqlParameter("@empId", id);
             var result=employeeManagementContext.Database.ExecuteSqlRaw("EXEC usp_DeleteEmployee @empId", empId);
-            if (result == 1)
+            if (result == 2)
             {
                 return true;
             }
@@ -85,7 +85,6 @@ namespace EmployeeManagement.Infra.RepositoriesImpl
             }
             
         }
-
         public Employee UpdateEmployee(int id, Employee emp)
         {
             if (emp == null)
@@ -110,7 +109,7 @@ namespace EmployeeManagement.Infra.RepositoriesImpl
             ExecuteSqlRaw("EXEC usp_UpdateEmployee @intEmpId,@txtFirstName,@txtLastName,@txtEmail," +
             "@txtPhone,@intDeptId,@salary,@status,@intLocationId,@intManagerId", empId, firstName, lastName, email, phone,
             deptId, salary, status, locationId, managerId);
-            if (result == 1)
+            if (result == 2)
                 return emp;
             else
                 throw new Exception("Employee does not exists");
