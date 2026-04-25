@@ -10,10 +10,10 @@ namespace EmployeeManagement.Core.ServiceInterface
 {
     public interface IEmployeeService
     {
-        IEnumerable<EmployeeDTO> GetAllEmployee();
-        EmployeeAddDTO AddNewEmployee(EmployeeAddDTO emp);
-        bool DeleteEmployee(int id);
-        EmployeeUpdateDTO GetEmployeeById(int id);
-        EmployeeUpdateDTO UpdateEmployee(int id, EmployeeUpdateDTO emp);
+        Task<IEnumerable<EmployeeDTO>> GetAllEmployee();
+        Task<EmployeeAddDTO> AddNewEmployee(EmployeeAddDTO emp);
+        Task<bool> DeleteEmployee(int id);
+        Task<EmployeeDTO> GetEmployeeById(int id);
+        Task<EmployeeUpdateDTO> UpdateEmployee(int id, EmployeeUpdateDTO emp);
     }
 }

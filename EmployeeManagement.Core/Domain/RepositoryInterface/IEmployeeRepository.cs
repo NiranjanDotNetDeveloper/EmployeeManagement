@@ -9,11 +9,11 @@ namespace EmployeeManagement.Core.Domain.RepositoryInterface
 {
     public interface IEmployeeRepository
     {
-        IEnumerable<Employee> GetAllEmployee();
-        Employee AddNewEmployee(Employee emp);
-        bool DeleteEmployee(int id);
-        Employee GetEmployeeById(int id);
-        Employee UpdateEmployee(int id, Employee emp);
+        Task<IEnumerable<Employee>> GetAllEmployee();
+        Task<Employee> AddNewEmployee(Employee emp);
+        Task<bool> DeleteEmployee(int id);
+        Task<Employee> GetEmployeeById(int id);
+        Task<Employee> UpdateEmployee(int id, Employee emp);
 
     }
 }

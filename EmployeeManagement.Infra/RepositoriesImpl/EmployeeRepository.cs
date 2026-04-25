@@ -18,7 +18,7 @@ namespace EmployeeManagement.Infra.RepositoriesImpl
         {
             this.employeeManagementContext = employeeManagementContext;
         }
-        public Employee AddNewEmployee(Employee emp)
+        public async Task<Employee> AddNewEmployee(Employee emp)
         {
            if(emp== null)
             {
@@ -33,8 +33,8 @@ namespace EmployeeManagement.Infra.RepositoriesImpl
             SqlParameter status = new SqlParameter("@status", emp.Status??(object) DBNull.Value);
             SqlParameter locationId = new SqlParameter("@intLocationId", emp.LocationId);
             SqlParameter managerId = new SqlParameter("@intManagerId", emp.ManagerId);
-            int result=employeeManagementContext.Database.
-            ExecuteSqlRaw("EXEC usp_AddNewEmployee @txtFirstName,@txtLastName,@txtEmail," +
+            int result=await employeeManagementContext.Database.
+            ExecuteSqlRawAsync("EXEC usp_AddNewEmployee @txtFirstName,@txtLastName,@txtEmail," +
             "@txtPhone,@intDeptId,@salary,@status,@intLocationId,@intManagerId",firstName,lastName,email,phone,
             deptId,salary,status,locationId,managerId);
             if (result == 2)
@@ -43,14 +43,14 @@ namespace EmployeeManagement.Infra.RepositoriesImpl
                 throw new Exception("Employee with this email already exists");
         }
 
-        public bool DeleteEmployee(int id)
+        public async Task<bool> DeleteEmployee(int id)
         {
            if (id <= 0)
             {
                 throw new ArgumentException("Please enter a valid EmpId");
             }
             SqlParameter empId = new SqlParameter("@empId", id);
-            var result=employeeManagementContext.Database.ExecuteSqlRaw("EXEC usp_DeleteEmployee @empId", empId);
+            var result=await employeeManagementContext.Database.ExecuteSqlRawAsync("EXEC usp_DeleteEmployee @empId", empId);
             if (result == 2)
             {
                 return true;
@@ -61,23 +61,23 @@ namespace EmployeeManagement.Infra.RepositoriesImpl
             }
         }
 
-        public IEnumerable<Employee> GetAllEmployee()
+        public async Task<IEnumerable<Employee>> GetAllEmployee()
         {
             var result=employeeManagementContext.Employees.FromSqlRaw("Exec usp_GetAllEmployee");
-            return result.ToList();
+            return await result.ToListAsync();
         }
 
-        public Employee GetEmployeeById(int id)
+        public async Task<Employee> GetEmployeeById(int id)
         {
             if (id <= 0)
             {
                 throw new ArgumentException("Please enter a valid EmpId");
             }
-            SqlParameter empId = new SqlParameter("@empId", id);
-            var result = employeeManagementContext.Employees.FromSqlRaw("EXEC usp_GetEmployeeById @empId", empId).FirstOrDefault();
+            SqlParameter empId = new SqlParameter("@EmpId", id);
+            var result = employeeManagementContext.Employees.FromSqlRaw("EXEC usp_GetEmployeeById @EmpId", empId).AsEnumerable().FirstOrDefault();
             if (result != null)
             {
-                return result;
+                return  result;
             }
             else
             {
@@ -85,7 +85,7 @@ namespace EmployeeManagement.Infra.RepositoriesImpl
             }
             
         }
-        public Employee UpdateEmployee(int id, Employee emp)
+        public async Task<Employee> UpdateEmployee(int id, Employee emp)
         {
             if (emp == null)
             {
@@ -105,8 +105,8 @@ namespace EmployeeManagement.Infra.RepositoriesImpl
             SqlParameter status = new SqlParameter("@status", emp.Status ?? (object)DBNull.Value);
             SqlParameter locationId = new SqlParameter("@intLocationId", emp.LocationId);
             SqlParameter managerId = new SqlParameter("@intManagerId", emp.ManagerId);
-            int result = employeeManagementContext.Database.
-            ExecuteSqlRaw("EXEC usp_UpdateEmployee @intEmpId,@txtFirstName,@txtLastName,@txtEmail," +
+            int result = await employeeManagementContext.Database.
+            ExecuteSqlRawAsync("EXEC usp_UpdateEmployee @intEmpId,@txtFirstName,@txtLastName,@txtEmail," +
             "@txtPhone,@intDeptId,@salary,@status,@intLocationId,@intManagerId", empId, firstName, lastName, email, phone,
             deptId, salary, status, locationId, managerId);
             if (result == 2)

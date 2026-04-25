@@ -2,6 +2,7 @@
 using EmployeeManagement.Core.Domain.Entities;
 using EmployeeManagement.Core.Domain.RepositoryInterface;
 using EmployeeManagement.Core.DTOs;
+using EmployeeManagement.Core.ServiceInterface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace EmployeeManagement.Core.Services
 {
-    public class EmployeeService
+    public class EmployeeService:IEmployeeService
     {
         private readonly IEmployeeRepository _empRepository;
         private readonly IMapper _mapper;
@@ -19,59 +20,60 @@ namespace EmployeeManagement.Core.Services
             this._empRepository = empRepository;
             this._mapper = mapper;
         }
-        public IEnumerable<EmployeeDTO> GetAllEmployee()
+        public async Task<IEnumerable<EmployeeDTO>> GetAllEmployee()
         {
-            var result= _empRepository.GetAllEmployee();
-            return _mapper.Map<List<EmployeeDTO>>(result);
+            var result= await _empRepository.GetAllEmployee();
+            var resultReturned= _mapper.Map<IEnumerable<EmployeeDTO>>(result);
+            return resultReturned;
         }
-        public EmployeeAddDTO AddNewEmployee(EmployeeAddDTO emp)
+        public async Task<EmployeeAddDTO> AddNewEmployee(EmployeeAddDTO emp)
         {
             if (emp == null)
             {
                 throw new ArgumentNullException("Please enter valid Employee details..");
             }
             var empObject = _mapper.Map<Employee>(emp);
-            var result=_empRepository.AddNewEmployee(empObject);
+            var result=await _empRepository.AddNewEmployee(empObject);
             if (result == null)
             {
                 throw new ArgumentNullException("Something went wrong while adding..");
             }
             return _mapper.Map<EmployeeAddDTO>(result);
         }
-        public EmployeeUpdateDTO UpdateEmployee(int id, EmployeeUpdateDTO emp)
+        public async Task<EmployeeUpdateDTO> UpdateEmployee(int id, EmployeeUpdateDTO emp)
         {
             if (id == 0 || emp ==null)
             {
                 throw new ArgumentNullException("Please enter valid Employee details..");
             }
             var empObject = _mapper.Map<Employee>(emp);
-            var result = _empRepository.UpdateEmployee(id,empObject);
+            var result = await _empRepository.UpdateEmployee(id,empObject);
             if (result == null)
             {
                 throw new ArgumentNullException("Something went wrong while updating..");
             }
             return _mapper.Map<EmployeeUpdateDTO>(result);
         }
-        public bool DeleteEmployee(int id)
+        public async Task<bool> DeleteEmployee(int id)
         {
             if (id == 0)
             {
                 throw new ArgumentNullException("Please enter valid Employee Id..");
             }
-            var result = _empRepository.DeleteEmployee(id);
+            var result = await _empRepository.DeleteEmployee(id);
             if (result)
                 return true;
             else
                 throw new Exception("Something went wrong while deleting an employee");
         }
-        public EmployeeUpdateDTO GetEmployeeById(int id)
+        public async Task<EmployeeDTO> GetEmployeeById(int id)
         {
             if (id == 0)
             {
                 throw new ArgumentNullException("Please enter valid Employee Id..");
             }
-            var result = _empRepository.GetEmployeeById(id);
-            var resultInDTO = _mapper.Map<EmployeeUpdateDTO>(result);
+            var result = await _empRepository.GetEmployeeById(id);
+            var resultInDTO = _mapper.Map<EmployeeDTO>(result);
             if (resultInDTO == null)
                 throw new Exception("Something went wrong while Fetching an employee");
             else

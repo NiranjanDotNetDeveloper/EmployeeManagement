@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace EmployeeManagement.Core.Helpers
 {
-    public class EmployeeAutoMapper:Profile
+    public class EmployeeAutoMapper:AutoMapper.Profile
     {
         public EmployeeAutoMapper()
         {
-            CreateMap<Employee, EmployeeAddDTO>();
-            CreateMap<EmployeeAddDTO, Employee>();
+            CreateMap<Employee, EmployeeDTO>();
+            CreateMap<EmployeeDTO, Employee>();
             CreateMap<Employee, EmployeeUpdateDTO>();
             CreateMap<EmployeeUpdateDTO, Employee>();
             CreateMap<Location, LocationDTO>();
