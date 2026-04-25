@@ -74,8 +74,17 @@ namespace EmployeeManagement.Tests
             result.Email.Should().Be(uniqueEmail);
             result.Salary.Should().Be(30000);
             transaction.Rollback();
-
-
+        }
+        [Fact]
+        public void AddEmployeeInvalid()
+        {
+           using var context = GetDbContext();
+            var repo = new EmployeeRepository(context);
+            Assert.Throws<ArgumentNullException>(() =>
+            {
+                repo.AddNewEmployee(null);
+            }
+            );
         }
     }
 }
