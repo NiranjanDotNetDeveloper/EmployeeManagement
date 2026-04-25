@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>EmployeeManagement.API</name>
+    </assembly>
+    <members>
+        <member name="M:EmployeeManagement.API.Controllers.EmployeeController.GetAllEmployeeDetails">
+            <summary>
+            Fetch All Employee Details
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EmployeeManagement.API.Controllers.EmployeeController.GetEmployeeById(System.Int32)">
+            <summary>
+            Fetch a Employee Detail by EmployeeId
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EmployeeManagement.API.Controllers.EmployeeController.AddNewEmployee(EmployeeManagement.Core.DTOs.EmployeeAddDTO)">
+            <summary>
+            Add New Employee
+            </summary>
+            <param name="employeeAddDTO">Pass Employee Details</param>
+            <returns></returns>
+        </member>
+        <member name="M:EmployeeManagement.API.Controllers.EmployeeController.UpdateEmployee(System.Int32,EmployeeManagement.Core.DTOs.EmployeeUpdateDTO)">
+            <summary>
+            Update existing Employee
+            </summary>
+            <param name="id">Pass Employee ID whose details needs to be updated</param>
+            <param name="employeeUpdateDTO">Pass Employee Details</param>
+            <returns></returns>
+        </member>
+        <member name="M:EmployeeManagement.API.Controllers.EmployeeController.DeleteEmployee(System.Int32)">
+            <summary>
+            Remove an Employee
+            </summary>
+            <param name="id">Pass Employee ID whose details needs to be removed</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

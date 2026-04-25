@@ -1,15 +1,17 @@
-using EmployeeManagement.Core.Helpers;
-using EmployeeManagement.Infra.DatabaseContext;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using AutoMapper;
-using EmployeeManagement.Core.Exceptions;
-using Serilog;
-using Microsoft.AspNetCore.Hosting;
 using EmployeeManagement.Core.Domain.RepositoryInterface;
-using EmployeeManagement.Infra.RepositoriesImpl;
+using EmployeeManagement.Core.Exceptions;
+using EmployeeManagement.Core.Helpers;
 using EmployeeManagement.Core.ServiceInterface;
 using EmployeeManagement.Core.Services;
+using EmployeeManagement.Infra.DatabaseContext;
+using EmployeeManagement.Infra.RepositoriesImpl;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using Serilog;
+using System.IO;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -28,10 +30,21 @@ builder.Host.UseSerilog((HostBuilderContext web,IServiceProvider service,LoggerC
 {
     log.ReadFrom.Configuration(web.Configuration).ReadFrom.Services(service);
 });
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(options =>
+{
+    options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, "app.xml"));
+});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 app.UseEmployeeException();
+if (app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection();
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 app.UseAuthorization();
 
 app.MapControllers();

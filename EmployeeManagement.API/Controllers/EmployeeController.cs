@@ -21,6 +21,10 @@ namespace EmployeeManagement.API.Controllers
             _empService = empService;
             _memoryCache = memoryCache;
         }
+        /// <summary>
+        /// Fetch All Employee Details
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public async Task<ActionResult<APIResponseWrapper<List<EmployeeDTO>>>> GetAllEmployeeDetails()
         {
@@ -62,6 +66,10 @@ namespace EmployeeManagement.API.Controllers
                 };
             }
         }
+        /// <summary>
+        /// Fetch a Employee Detail by EmployeeId
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<APIResponseWrapper<EmployeeDTO>>> GetEmployeeById(int id)
         {
@@ -89,6 +97,11 @@ namespace EmployeeManagement.API.Controllers
                 };
             }
         }
+        /// <summary>
+        /// Add New Employee
+        /// </summary>
+        /// <param name="employeeAddDTO">Pass Employee Details</param>
+        /// <returns></returns>
         [HttpPost]
         public async Task<ActionResult<APIResponseWrapper<EmployeeAddDTO>>> AddNewEmployee([FromBody] EmployeeAddDTO employeeAddDTO)
         {
@@ -131,6 +144,12 @@ namespace EmployeeManagement.API.Controllers
             }
 
         }
+        /// <summary>
+        /// Update existing Employee
+        /// </summary>
+        /// <param name="id">Pass Employee ID whose details needs to be updated</param>
+        /// <param name="employeeUpdateDTO">Pass Employee Details</param>
+        /// <returns></returns>
         [HttpPut("{id}")]
         public async Task<ActionResult<APIResponseWrapper<EmployeeUpdateDTO>>> UpdateEmployee(int id, [FromBody] EmployeeUpdateDTO employeeUpdateDTO)
         {
@@ -172,6 +191,11 @@ namespace EmployeeManagement.API.Controllers
                 };
             }
         }
+        /// <summary>
+        /// Remove an Employee
+        /// </summary>
+        /// <param name="id">Pass Employee ID whose details needs to be removed</param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         public async Task<ActionResult<APIResponseWrapper<bool>>> DeleteEmployee(int id)
         {
