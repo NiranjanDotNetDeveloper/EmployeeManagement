@@ -24,6 +24,10 @@ builder.Services.AddDbContext<EmployeeManagementContext>(options =>
 builder.Services.AddTransient<IEmployeeRepository, EmployeeRepository>();
 builder.Services.AddTransient<IEmployeeService, EmployeeService>();
 builder.Services.AddTransient<EmployeeManagementException>();
+builder.Services.AddTransient<IDepartmentRepository, DepartmentRepository>();
+builder.Services.AddTransient<IDepartmentService, DepartmentService>();
+builder.Services.AddTransient<ILocationRepository, LocationRepositoryImpl>();
+builder.Services.AddTransient<ILocationService, LocationService>();
 builder.Services.AddAutoMapper(typeof(EmployeeAutoMapper));
 builder.Services.AddMemoryCache();
 builder.Host.UseSerilog((HostBuilderContext web,IServiceProvider service,LoggerConfiguration log) =>

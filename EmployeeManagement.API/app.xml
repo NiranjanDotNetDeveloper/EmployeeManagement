@@ -4,6 +4,12 @@
         <name>EmployeeManagement.API</name>
     </assembly>
     <members>
+        <member name="M:EmployeeManagement.API.Controllers.DepartmentController.GetAllDepartments">
+            <summary>
+            Fetch All the Avialable locations
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:EmployeeManagement.API.Controllers.EmployeeController.GetAllEmployeeDetails">
             <summary>
             Fetch All Employee Details
@@ -47,6 +53,12 @@
         <member name="M:EmployeeManagement.API.Controllers.EmployeeController.DonwloadExcelReport">
             <summary>
             Export employee details
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EmployeeManagement.API.Controllers.LocationController.GetAllLocations">
+            <summary>
+            Fetch All the Avialable locations
             </summary>
             <returns></returns>
         </member>
