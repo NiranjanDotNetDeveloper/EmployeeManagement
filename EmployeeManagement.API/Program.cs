@@ -39,14 +39,11 @@ var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 app.UseEmployeeException();
-if (app.Environment.IsDevelopment())
-{
-    app.UseHttpsRedirection();
     app.UseSwagger();
     app.UseSwaggerUI();
-}
+app.UseDeveloperExceptionPage();
 app.UseAuthorization();
 
 app.MapControllers();
-
+app.MapGet("/", () => "API is running...");
 app.Run();

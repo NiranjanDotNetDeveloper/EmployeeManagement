@@ -38,5 +38,17 @@
             <param name="id">Pass Employee ID whose details needs to be removed</param>
             <returns></returns>
         </member>
+        <member name="M:EmployeeManagement.API.Controllers.EmployeeController.GetEmployeeWithLocationAndDepartment(System.String,System.String,System.Int32,System.String)">
+            <summary>
+            Fetch all Employees in sorting order with Department and location
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:EmployeeManagement.API.Controllers.EmployeeController.DonwloadExcelReport">
+            <summary>
+            Export employee details
+            </summary>
+            <returns></returns>
+        </member>
     </members>
 </doc>

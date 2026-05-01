@@ -15,5 +15,7 @@ namespace EmployeeManagement.Core.ServiceInterface
         Task<bool> DeleteEmployee(int id);
         Task<EmployeeDTO> GetEmployeeById(int id);
         Task<EmployeeUpdateDTO> UpdateEmployee(int id, EmployeeUpdateDTO emp);
+        Task<(IEnumerable<EmployeeViewDTO>,int totalCount)> GetAllEmployeeWithLocationAndDepartment(string columnName, string sortDirection, int page, string searchBy);
+        Task<byte[]> ExportEmployee();
     }
 }

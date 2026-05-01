@@ -99,6 +99,49 @@ namespace EmployeeManagement.Infra.Migrations
                     b.ToTable("Employees");
                 });
 
+            modelBuilder.Entity("EmployeeManagement.Core.Domain.Entities.EmployeeView", b =>
+                {
+                    b.Property<string>("DepartmentName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DeptId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("EmpId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("EmpName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("JoiningDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("LocationId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ManagerId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal?>("Salary")
+                        .HasColumnType("decimal(10,2)");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.ToTable((string)null);
+
+                    b.ToView("view_GetEmployeeDetails", (string)null);
+                });
+
             modelBuilder.Entity("EmployeeManagement.Core.Domain.Entities.Location", b =>
                 {
                     b.Property<int>("Id")

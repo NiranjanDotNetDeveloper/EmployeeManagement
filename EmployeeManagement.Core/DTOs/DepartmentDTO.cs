@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace EmployeeManagement.Core.DTOs
 {
+    
     public class DepartmentDTO
     {
         public string? DepartmentName { get; set; }

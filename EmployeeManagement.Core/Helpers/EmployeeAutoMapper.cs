@@ -16,11 +16,15 @@ namespace EmployeeManagement.Core.Helpers
             CreateMap<Employee, EmployeeDTO>();
             CreateMap<EmployeeDTO, Employee>();
             CreateMap<Employee, EmployeeUpdateDTO>();
+            CreateMap<EmployeeAddDTO, Employee>();
+            CreateMap<Employee, EmployeeAddDTO>();
             CreateMap<EmployeeUpdateDTO, Employee>();
             CreateMap<Location, LocationDTO>();
             CreateMap<LocationDTO, Location>();
             CreateMap<Department, DepartmentDTO>();
             CreateMap<DepartmentDTO, Department>();
+            CreateMap<EmployeeView, EmployeeViewDTO>();
+            CreateMap<EmployeeViewDTO, EmployeeView>();
         }
     }
 }

@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 
 namespace EmployeeManagement.Core.Domain.Entities
 {
+    
     public class Department
     {
         public int DeptId { get; set; }
         public string? DepartmentName { get; set; }
 
         public ICollection<Employee>? Employees { get; set; }
+
     }
+    
 }

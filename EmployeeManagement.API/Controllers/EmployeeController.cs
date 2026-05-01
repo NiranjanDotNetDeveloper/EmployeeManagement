@@ -1,8 +1,10 @@
-﻿using EmployeeManagement.Core.DTOs;
+﻿using EmployeeManagement.Core.Domain.Entities;
+using EmployeeManagement.Core.DTOs;
 using EmployeeManagement.Core.Helpers;
 using EmployeeManagement.Core.ServiceInterface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Caching.Memory;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -122,7 +124,7 @@ namespace EmployeeManagement.API.Controllers
             var result = await _empService.AddNewEmployee(employeeAddDTO);
             if (result == null)
             {
-              
+
                 _logger.LogInformation("Some error occuered. Employee has not been added.");
                 return new APIResponseWrapper<EmployeeAddDTO>()
                 {
@@ -170,7 +172,7 @@ namespace EmployeeManagement.API.Controllers
             var result = await _empService.UpdateEmployee(id, employeeUpdateDTO);
             if (result == null)
             {
-               
+
                 _logger.LogInformation("Some error occuered. Employee has not been updated.");
                 return new APIResponseWrapper<EmployeeUpdateDTO>()
                 {
@@ -222,6 +224,48 @@ namespace EmployeeManagement.API.Controllers
                 };
 
             }
+        }
+    
+        /// <summary>
+        /// Fetch all Employees in sorting order with Department and location
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet("{columnName?}/{sortOrder?}/{page?}/{searchBy?}")]
+        public async Task<APIResponsePaginated<IEnumerable<EmployeeViewDTO>>> GetEmployeeWithLocationAndDepartment(string columnName="EmpName",string sortOrder="ASC",int page=1,string? searchBy=null)
+        {
+            _logger.LogInformation($"Request recieved to fetch all the employees");
+            {
+                if (page <= 0) page = 1;
+
+                var (result, totalCount) = await _empService
+                    .GetAllEmployeeWithLocationAndDepartment(columnName, sortOrder, page, searchBy);
+
+                int pageSize = 10;
+                double totalPage = Math.Ceiling((double)totalCount / pageSize);
+
+                return new APIResponsePaginated<IEnumerable<EmployeeViewDTO>>()
+                {
+                    Message = "Employees Fetched successfully",
+                    StatusCode = 200,
+                    TotalPage = totalPage,
+                    CurrentPage = page,
+                    Data = result
+                };
+            }
+
+        }
+        /// <summary>
+        /// Export employee details
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]        
+        
+        public async Task<IActionResult> DonwloadExcelReport()
+        {
+            _logger.LogInformation($"Request recieved to export all employees details");
+            var result = await _empService.ExportEmployee();
+            return File(result, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+           "Employees.xlsx");
         }
     }
 }

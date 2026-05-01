@@ -79,5 +79,17 @@ namespace EmployeeManagement.Core.Services
             else
                 return resultInDTO;
         }
+        public async Task<(IEnumerable<EmployeeViewDTO>, int totalCount)> GetAllEmployeeWithLocationAndDepartment(string columnName, string sortDirection, int page, string searchBy)
+        {
+            var (data, count) = await _empRepository.GetAllEmployeeWithLocationAndDepartment(columnName, sortDirection, page,searchBy);
+
+            var dto = _mapper.Map<IEnumerable<EmployeeViewDTO>>(data);
+
+            return (dto, count);
+        }
+        public async Task<byte[]> ExportEmployee()
+        {
+            return await _empRepository.ExportEmployee();
+        }
     }
 }

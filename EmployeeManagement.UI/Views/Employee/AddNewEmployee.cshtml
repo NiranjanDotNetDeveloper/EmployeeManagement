@@ -1,0 +1,92 @@
+﻿@{
+    ViewBag.Title = "Add Employee";
+}
+@model EmployeeAdd
+<link rel="stylesheet" href="~/bootstrap/css/bootstrap.min.css" />
+<div class="container d-flex justify-content-center align-content-center">
+    <div class="card w-75 mt-5">
+            <h1 class="text-center bg-secondary text-white mt-2">Add New Employee</h1>
+            <div class="card-body">
+                <form asp-controller="Employee" asp-action="AddNewEmployee" method="post">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mt-2">
+                                <label asp-for="FirstName" class="form-label">FirstName</label>
+                                <input type="text" asp-for="FirstName" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mt-2">
+                                <label asp-for="LastName" class="form-label">LastName</label>
+                                <input type="text" asp-for="LastName" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mt-2">
+                                <label asp-for="Email" class="form-label">Email</label>
+                                <input type="email" asp-for="Email" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mt-2">
+                                <label asp-for="Phone" class="form-label">Phone</label>
+                                <input type="number" asp-for="Phone" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mt-2">
+                                <label asp-for="DeptId" class="form-label">DeptId</label>
+                                <input type="number" asp-for="DeptId" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mt-2">
+                                <label asp-for="Salary" class="form-label">Salary</label>
+                                <input type="number" asp-for="Salary" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mt-2">
+                                <label asp-for="JoinDate" class="form-label">JoinDate</label>
+                                <input type="date" asp-for="JoinDate" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mt-2">
+                                <label asp-for="Status" class="form-label">Status</label>
+                                <input type="text" asp-for="Status" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mt-2">
+                                <label asp-for="LocationId" class="form-label">LocationId</label>
+                                <input type="number" asp-for="LocationId" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mt-2">
+                                <label asp-for="ManagerId" class="form-label">ManagerId</label>
+                                <input type="number" asp-for="ManagerId" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="mt-2">
+                                <button class="btn btn-primary w-100" type="submit">Add Employee</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+</div>
+<script src="~/bootstrap/js/bootstrap.min.js"></script>

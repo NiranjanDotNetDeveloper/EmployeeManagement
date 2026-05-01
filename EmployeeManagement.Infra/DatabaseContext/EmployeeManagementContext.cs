@@ -17,11 +17,16 @@ namespace EmployeeManagement.Infra.DatabaseContext
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Location> Locations { get; set; }
+        public DbSet<EmployeeView> AllEmpDetails { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             ConfigureEmployees(modelBuilder);
             ConfigureLocation(modelBuilder);
             ConfigureDepartment(modelBuilder);
+            modelBuilder.Entity<EmployeeView>(options =>{
+                options.ToView("view_GetEmployeeDetails").HasNoKey();
+                options.Property(x => x.Salary).HasColumnType("decimal(10,2)");
+            });
             base.OnModelCreating(modelBuilder);
         }
         public void ConfigureEmployees(ModelBuilder builder)
